@@ -70,8 +70,6 @@ body {
   margin: 0 auto 20px auto;
   position: relative;
   overflow: hidden;
-  transform: rotate(0deg) scale(2);
-  transition: all 1000ms ease-in-out;
 }
 .wheel .segment {
   position: absolute;
