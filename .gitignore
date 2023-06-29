@@ -1,4 +1,7 @@
-.gitignore
+
 node_modules
 package-lock.json
 build
+
+# Editor directories and files
+.gitignore
