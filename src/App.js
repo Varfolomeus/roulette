@@ -9,6 +9,10 @@ class RouletteContext {
   segmentAngle = 0;
   numberOfSegments = 0;
   spinStarted = false;
+  rouletteNumbers = [
+    0, 32, 15, 19, 4, 21, 2, 25, 17, 34, 6, 27, 13, 36, 11, 30, 8, 23, 10, 5, 24, 16, 33, 1, 20, 14, 31, 9, 22, 18, 29,
+    7, 28, 12, 35, 3, 26,
+  ];
   result = 0;
   evenBid = 0;
   oddBid = 0;
@@ -64,6 +68,7 @@ export const Tableau = observer(({ wheelRef }) => {
     double,
     setDouble,
     result,
+    rouletteNumbers,
     setResult,
     oddBid,
     evenBid,
@@ -80,12 +85,13 @@ export const Tableau = observer(({ wheelRef }) => {
   } = rouletteStorage;
 
   const handleSpinResult = (sector) => {
-    console.log('sector', sector);
+    let rouletteNumber = rouletteNumbers[sector];
+    console.log('sector', sector, 'rouletteNumber', rouletteNumber);
     if (oddBid) {
-      if (sector > 0 && sector % 2 === 0) {
+      if (rouletteNumber > 0 && rouletteNumber % 2 === 0) {
         setResult(-oddBid);
         setWin(false);
-      } else if (sector > 0 && sector % 2 !== 0) {
+      } else if (rouletteNumber > 0 && rouletteNumber % 2 !== 0) {
         setResult(oddBid);
         setWin(true);
       } else {
@@ -93,10 +99,10 @@ export const Tableau = observer(({ wheelRef }) => {
         setWin(false);
       }
     } else if (evenBid) {
-      if (sector > 0 && sector % 2 === 0) {
+      if (rouletteNumber > 0 && rouletteNumber % 2 === 0) {
         setResult(evenBid);
         setWin(true);
-      } else if (sector > 0 && sector % 2 !== 0) {
+      } else if (rouletteNumber > 0 && rouletteNumber % 2 !== 0) {
         setResult(-evenBid);
         setWin(false);
       } else {
@@ -212,6 +218,7 @@ export const Tableau = observer(({ wheelRef }) => {
 });
 
 export const Wheel = observer(({ wheelRef }) => {
+  const { rouletteNumbers, numberOfSegments } = rouletteStorage;
   return (
     <div>
       <span className="arrow"></span>
@@ -220,27 +227,14 @@ export const Wheel = observer(({ wheelRef }) => {
         className="wheel"
         style={{ transition: 'transform 1000ms ease-in-out 0s', transform: 'rotate(0deg)' }}
       >
-        <div className="segment zero"> </div>
-        <div className="segment even s20"> </div>
-        <div className="segment odd s19"> </div>
-        <div className="segment even s18"> </div>
-        <div className="segment odd s17"> </div>
-        <div className="segment even s16"> </div>
-        <div className="segment odd s15"> </div>
-        <div className="segment even s14"> </div>
-        <div className="segment odd s13"> </div>
-        <div className="segment even s12"> </div>
-        <div className="segment odd s11"> </div>
-        <div className="segment even s10"> </div>
-        <div className="segment odd s9"> </div>
-        <div className="segment even s8"> </div>
-        <div className="segment odd s7"> </div>
-        <div className="segment even s6"> </div>
-        <div className="segment odd s5"> </div>
-        <div className="segment even s4"> </div>
-        <div className="segment odd s3"> </div>
-        <div className="segment even s2"> </div>
-        <div className="segment odd s1"> </div>
+        {rouletteNumbers.map((num, i) => (
+          <div
+            className={`segment ${i === 0 ? 'zero' : i % 2 === 0 ? 'red' : 'black'}`}
+            style={{ transform: `translateX(-50%) rotate(${(360 / numberOfSegments) * i}deg)` }}
+          >
+            <span>{num}</span>
+          </div>
+        ))}
       </div>
     </div>
   );
@@ -258,7 +252,7 @@ const Results = observer(({ wheelRef }) => {
   }, []);
   React.useEffect(() => {
     if (!gameOver) {
-      console.log('stored');
+      // console.log('stored');
       localStorage.setItem('myrouletteresult', JSON.stringify({ result }));
     }
   }, [result]);

@@ -1,6 +1,6 @@
 :root {
-  --wheel-width-height: 300px;
-  --number-of-segments: 21;
+  --wheel-width-height: 400px;
+  --number-of-segments: 37;
   --segment-font-size: calc(var(--wheel-width-height)/var(--number-of-segments));
   --segments-border-top: calc(var(--wheel-width-height)/2);
   --segments-text-bottom: calc(var(--segments-border-top) - var(--segment-font-size)*2.5);
@@ -8,8 +8,8 @@
   --segments-angle: calc(360deg / var(--number-of-segments));
   --segments-border-left-right: calc((var(--wheel-width-height) * 3.3 / var(--number-of-segments))/2);
   --wheel-border-width: calc(var(--wheel-width-height) / 30);
-  --wheel-odd-color: rgb(150, 114, 28);
-  --wheel-even-color: rgb(40, 75, 116);
+  --wheel-red-color: rgb(121, 39, 39);
+  --wheel-black-color: rgb(18, 25, 33);
 }
 
 body {
@@ -112,16 +112,17 @@ body {
 }
 
 
-.wheel .even {
-  border-top: var(--segments-border-top) solid var(--wheel-even-color);
+.wheel .red {
+  border-top: var(--segments-border-top) solid var(--wheel-black-color);
 }
 
-.wheel .odd {
-  border-top: var(--segments-border-top) solid var(--wheel-odd-color);
+.wheel .black {
+  border-top: var(--segments-border-top) solid var(--wheel-red-color);
 }
 
-.wheel .segment::before {
+.wheel .segment span {
   display: inline;
+  color: antiquewhite;
   position: absolute;
   width: var(--segments-border-left-right);
   height: var(--segments-border-left-right);
@@ -132,160 +133,7 @@ body {
 }
 
 .wheel .zero {
-  transform: translateX(-50%) rotate(calc(var(--segments-angle)*0));
   border-top: var(--segments-border-top) solid rgb(29, 158, 29);
-}
-
-.wheel .zero::before {
-  content: "0";
-}
-
-.wheel .s1 {
-  transform: translateX(var(--segments-transform-translatex)) rotate(calc(var(--segments-angle)*1));
-}
-
-.wheel .s1::before {
-  content: "1";
-}
-
-.wheel .s2 {
-  transform: translateX(var(--segments-transform-translatex)) rotate(calc(var(--segments-angle)*2));
-}
-
-.wheel .s2::before {
-  content: "2";
-}
-
-.wheel .s3 {
-  transform: translateX(var(--segments-transform-translatex)) rotate(calc(var(--segments-angle)*3));
-}
-
-.wheel .s3::before {
-  content: "3";
-}
-
-.wheel .s4 {
-  transform: translateX(var(--segments-transform-translatex)) rotate(calc(var(--segments-angle)*4));
-}
-
-.wheel .s4::before {
-  content: "4";
-}
-
-.wheel .s5 {
-  transform: translateX(var(--segments-transform-translatex)) rotate(calc(var(--segments-angle)*5));
-}
-
-.wheel .s5::before {
-  content: "5";
-}
-
-.wheel .s6 {
-  transform: translateX(var(--segments-transform-translatex)) rotate(calc(var(--segments-angle)*6));
-}
-
-.wheel .s6::before {
-  content: "6";
-}
-
-.wheel .s7 {
-  transform: translateX(var(--segments-transform-translatex)) rotate(calc(var(--segments-angle)*7));
-}
-
-.wheel .s7::before {
-  content: "7";
-}
-
-.wheel .s8 {
-  transform: translateX(var(--segments-transform-translatex)) rotate(calc(var(--segments-angle)*8));
-}
-
-.wheel .s8::before {
-  content: "8";
-}
-.wheel .s9 {
-  transform: translateX(var(--segments-transform-translatex)) rotate(calc(var(--segments-angle)*9));
-}
-
-.wheel .s9::before {
-  content: "9";
-}
-.wheel .s10 {
-  transform: translateX(var(--segments-transform-translatex)) rotate(calc(var(--segments-angle)*10));
-}
-
-.wheel .s10::before {
-  content: "10";
-}
-.wheel .s11 {
-  transform: translateX(var(--segments-transform-translatex)) rotate(calc(var(--segments-angle)*11));
-}
-
-.wheel .s11::before {
-  content: "11";
-}
-.wheel .s12 {
-  transform: translateX(var(--segments-transform-translatex)) rotate(calc(var(--segments-angle)*12));
-}
-
-.wheel .s12::before {
-  content: "12";
-}
-.wheel .s13 {
-  transform: translateX(var(--segments-transform-translatex)) rotate(calc(var(--segments-angle)*13));
-}
-
-.wheel .s13::before {
-  content: "13";
-}
-.wheel .s14 {
-  transform: translateX(var(--segments-transform-translatex)) rotate(calc(var(--segments-angle)*14));
-}
-
-.wheel .s14::before {
-  content: "14";
-}
-.wheel .s15 {
-  transform: translateX(var(--segments-transform-translatex)) rotate(calc(var(--segments-angle)*15));
-}
-
-.wheel .s15::before {
-  content: "15";
-}
-.wheel .s16 {
-  transform: translateX(var(--segments-transform-translatex)) rotate(calc(var(--segments-angle)*16));
-}
-
-.wheel .s16::before {
-  content: "16";
-}
-.wheel .s17 {
-  transform: translateX(var(--segments-transform-translatex)) rotate(calc(var(--segments-angle)*17));
-}
-
-.wheel .s17::before {
-  content: "17";
-}
-.wheel .s18 {
-  transform: translateX(var(--segments-transform-translatex)) rotate(calc(var(--segments-angle)*18));
-}
-
-.wheel .s18::before {
-  content: "18";
-}
-.wheel .s19 {
-  transform: translateX(var(--segments-transform-translatex)) rotate(calc(var(--segments-angle)*19));
-}
-
-.wheel .s19::before {
-  content: "19";
-}
-.wheel .s20 {
-  transform: translateX(var(--segments-transform-translatex)) rotate(calc(var(--segments-angle)*20));
-}
-
-.wheel .s20::before {
-  content: "20";
 }
 
 .results-frame {
