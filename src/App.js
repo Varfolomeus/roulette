@@ -228,7 +228,7 @@ export const Wheel = observer(({ wheelRef }) => {
         style={{ transition: 'transform 1000ms ease-in-out 0s', transform: 'rotate(0deg)' }}
       >
         {rouletteNumbers.map((num, i) => (
-          <div
+          <div key={`seg${i}`}
             className={`segment ${i === 0 ? 'zero' : i % 2 === 0 ? 'red' : 'black'}`}
             style={{ transform: `translateX(-50%) rotate(${(360 / numberOfSegments) * i}deg)` }}
           >
