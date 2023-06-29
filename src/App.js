@@ -114,7 +114,7 @@ export const Tableau = observer(({ wheelRef }) => {
       // console.log('spinStarted', spinStarted);
       // console.log('angleC', angleC, 'spinStarted', spinStarted, 'rotateAngle', rotateAngle, rotateAnglePrev);
       wheelRef.current.style.transition = `transform ${Math.abs(angleC)}ms ease-in-out`;
-      wheelRef.current.style.transform = `rotate(${rotateAnglePrev}deg) scale(2)`;
+      wheelRef.current.style.transform = `rotate(${rotateAnglePrev}deg)`;
       setWin(null);
       setRotateAngle(angleC);
       const tyty = setTimeout(() => {
@@ -211,17 +211,29 @@ export const Wheel = observer(({ wheelRef }) => {
       <div
         ref={wheelRef}
         className="wheel"
-        style={{ transition: 'transform 1000ms ease-in-out 0s', transform: 'rotate(0deg) scale(2)' }}
+        style={{ transition: 'transform 1000ms ease-in-out 0s', transform: 'rotate(0deg)' }}
       >
-        <div className="segment one"> </div>
-        <div className="segment two"> </div>
-        <div className="segment three"> </div>
-        <div className="segment four"> </div>
-        <div className="segment five"> </div>
-        <div className="segment six"> </div>
-        <div className="segment seven"> </div>
-        <div className="segment eight"> </div>
         <div className="segment zero"> </div>
+        <div className="segment even s20"> </div>
+        <div className="segment odd s19"> </div>
+        <div className="segment even s18"> </div>
+        <div className="segment odd s17"> </div>
+        <div className="segment even s16"> </div>
+        <div className="segment odd s15"> </div>
+        <div className="segment even s14"> </div>
+        <div className="segment odd s13"> </div>
+        <div className="segment even s12"> </div>
+        <div className="segment odd s11"> </div>
+        <div className="segment even s10"> </div>
+        <div className="segment odd s9"> </div>
+        <div className="segment even s8"> </div>
+        <div className="segment odd s7"> </div>
+        <div className="segment even s6"> </div>
+        <div className="segment odd s5"> </div>
+        <div className="segment even s4"> </div>
+        <div className="segment odd s3"> </div>
+        <div className="segment even s2"> </div>
+        <div className="segment odd s1"> </div>
       </div>
     </div>
   );
@@ -254,12 +266,12 @@ const Results = observer(({ wheelRef }) => {
 
   return (
     <div className="results-frame">
-      {result <= 0 && <span>Внесите депозит, на счету: {result} </span>}
-      {result > 0 && <span>Счет: {result}</span>}
-      {oddBid > 0 && <span>, ставка на нечет: {oddBid}</span>}
-      {evenBid > 0 && <span>, ставка на чет: {evenBid}</span>}
-      {result > 0 && evenBid === 0 && oddBid === 0 && <span>, ваша ставка? </span>}
-      <span>{win === true ? ` - выигрыш 😆` : win === false ? ` - проигрыш 😟` : ``}</span>
+      {result <= 0 && <span>Increase deposit, score: {result} </span>}
+      {result > 0 && <span>Score: {result}</span>}
+      {oddBid > 0 && <span>, bet on odd: {oddBid}</span>}
+      {evenBid > 0 && <span>, bet on even: {evenBid}</span>}
+      {result > 0 && evenBid === 0 && oddBid === 0 && <span>, Your bet? </span>}
+      <span>{win === true ? ` - wins 😆` : win === false ? ` - not matched 😟` : ``}</span>
     </div>
   );
 });

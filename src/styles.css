@@ -1,8 +1,24 @@
+:root {
+  --wheel-width-height: 300px;
+  --number-of-segments: 21;
+  --segment-font-size: calc(var(--wheel-width-height)/var(--number-of-segments));
+  --segments-border-top: calc(var(--wheel-width-height)/2);
+  --segments-text-bottom: calc(var(--segments-border-top) - var(--segment-font-size)*2.5);
+  --segments-transform-translatex: -50%;
+  --segments-angle: calc(360deg / var(--number-of-segments));
+  --segments-border-left-right: calc((var(--wheel-width-height) * 3.3 / var(--number-of-segments))/2);
+  --wheel-border-width: calc(var(--wheel-width-height) / 30);
+  --wheel-odd-color: rgb(180, 15, 15);
+  --wheel-even-color: rgb(34, 57, 206);
+}
+
 body {
   width: 100%;
   height: 100%;
+  box-sizing: border-box;
   background-color: rgb(212, 245, 217);
 }
+
 .App {
   width: 100%;
   height: 100%;
@@ -12,6 +28,7 @@ body {
   display: flex;
   flex-direction: column;
 }
+
 .tableau {
   background-color: chocolate;
   display: flex;
@@ -22,6 +39,7 @@ body {
   border-radius: 10px;
   padding: 10px;
 }
+
 .spin-button {
   display: flex;
   align-items: center;
@@ -38,15 +56,18 @@ body {
   transition: all 500ms ease-out;
   cursor: pointer;
 }
+
 .spin-button:hover,
 .spin-button.spin-button-active {
   background-color: darkblue;
   color: cornsilk;
 }
+
 .spin-button:hover.spin-button-active {
   background-color: rgb(147, 147, 192);
   color: cornsilk;
 }
+
 .arrow {
   width: 0;
   height: 0;
@@ -54,114 +75,224 @@ body {
   border-right: 10px solid transparent;
   border-top: 35px solid#7AB4E2;
   position: absolute;
-  top: -10px;
+  top: 0px;
   left: 50%;
   transform: translateX(-2px);
-  z-index: 2;
+  z-index: 1;
 }
+
 .wheel {
   display: block;
-  width: 150px;
-  height: 150px;
-  top: 80px;
+  width: var(--wheel-width-height);
+  height: var(--wheel-width-height);
+  top: 0px;
   background-color: skyblue;
-  border: 6px solid rgb(179, 10, 80);
+  border: var(--wheel-border-width) solid rgb(195, 159, 41);
   border-radius: 50%;
-  margin: 0 auto 20px auto;
+  margin: 0 auto;
   position: relative;
   overflow: hidden;
 }
+
 .wheel .segment {
   position: absolute;
   top: 0px;
   left: 50%;
   width: 0;
   height: 0;
-  border-top: 75px solid rgb(255, 255, 255);
-  border-left: 28px solid transparent;
-  border-right: 28px solid transparent;
+  font-size: var(--segment-font-size);
+  text-align: center;
+  border-top: var(--segments-border-top) solid rgb(255, 255, 255);
+  border-left: var(--segments-border-left-right) solid transparent;
+  border-right: var(--segments-border-left-right) solid transparent;
   border-bottom: 0;
   transform-origin: bottom;
   color: white;
-  transform: translateX(-50%) rotate(180deg);
+  transform: translateX(var(--segments-transform-translatex)) rotate(calc(var(--segments-angle)*1));
 }
 
-.segment.zero {
-  transform: translateX(-50%) rotate(0deg);
-  border-top: 75px solid rgb(9, 248, 9);
+
+.wheel .even {
+  border-top: var(--segments-border-top) solid var(--wheel-even-color);
 }
+
+.wheel .odd {
+  border-top: var(--segments-border-top) solid var(--wheel-odd-color);
+}
+
 .wheel .segment::before {
   display: inline;
   position: absolute;
-  bottom: 40px;
-  right: -4px;
+  width: var(--segments-border-left-right);
+  height: var(--segments-border-left-right);
+  /* background-color: gold; */
+  text-align: center;
+  bottom: var(--segments-text-bottom);
+  left: calc(var(--segments-border-left-right)/(-2));
   transform: rotate(180deg);
 }
-.wheel .segment.one {
-  transform: translateX(-50%) rotate(40deg);
-  border-top: 75px solid rgb(98, 189, 159);
-}
-.zero::before {
-  content: "0";
-}
-.one::before {
-  content: "8";
-}
-.segment.two {
-  transform: translateX(-50%) rotate(80deg);
-  border-top: 75px solid rgb(37, 161, 45);
-}
-.two::before {
-  content: "7";
-}
-.segment.three {
-  transform: translateX(-50%) rotate(120deg);
-  border-top: 75px solid rgb(100, 98, 189);
-}
-.three::before {
-  content: "6";
-}
-.segment.four {
-  transform: translateX(-50%) rotate(160deg);
-  border-top: 75px solid rgb(36, 212, 51);
-}
-.four::before {
-  content: "5";
-}
-.segment.five {
-  transform: translateX(-50%) rotate(200deg);
-  border-top: 75px solid rgb(226, 55, 169);
-}
-.five::before {
-  content: "4";
-}
-.segment.six {
-  transform: translateX(-50%) rotate(240deg);
-  border-top: 75px solid rgb(57, 175, 67);
-}
-.six::before {
-  content: "3";
-}
-.segment.seven {
-  transform: translateX(-50%) rotate(280deg);
-  border-top: 75px solid rgb(189, 153, 98);
+
+.wheel .zero {
+  transform: translateX(-50%) rotate(calc(var(--segments-angle)*0));
+  border-top: var(--segments-border-top) solid rgb(9, 248, 9);
 }
 
-.seven::before {
+.wheel .zero::before {
+  content: "0";
+}
+
+.wheel .s1 {
+  transform: translateX(var(--segments-transform-translatex)) rotate(calc(var(--segments-angle)*1));
+}
+
+.wheel .s1::before {
+  content: "1";
+}
+
+.wheel .s2 {
+  transform: translateX(var(--segments-transform-translatex)) rotate(calc(var(--segments-angle)*2));
+}
+
+.wheel .s2::before {
   content: "2";
 }
 
-.segment.eight {
-  transform: translateX(-50%) rotate(320deg);
-  border-top: 75px solid rgb(106, 156, 32);
+.wheel .s3 {
+  transform: translateX(var(--segments-transform-translatex)) rotate(calc(var(--segments-angle)*3));
 }
-.eight::before {
-  content: "1";
+
+.wheel .s3::before {
+  content: "3";
 }
+
+.wheel .s4 {
+  transform: translateX(var(--segments-transform-translatex)) rotate(calc(var(--segments-angle)*4));
+}
+
+.wheel .s4::before {
+  content: "4";
+}
+
+.wheel .s5 {
+  transform: translateX(var(--segments-transform-translatex)) rotate(calc(var(--segments-angle)*5));
+}
+
+.wheel .s5::before {
+  content: "5";
+}
+
+.wheel .s6 {
+  transform: translateX(var(--segments-transform-translatex)) rotate(calc(var(--segments-angle)*6));
+}
+
+.wheel .s6::before {
+  content: "6";
+}
+
+.wheel .s7 {
+  transform: translateX(var(--segments-transform-translatex)) rotate(calc(var(--segments-angle)*7));
+}
+
+.wheel .s7::before {
+  content: "7";
+}
+
+.wheel .s8 {
+  transform: translateX(var(--segments-transform-translatex)) rotate(calc(var(--segments-angle)*8));
+}
+
+.wheel .s8::before {
+  content: "8";
+}
+.wheel .s9 {
+  transform: translateX(var(--segments-transform-translatex)) rotate(calc(var(--segments-angle)*9));
+}
+
+.wheel .s9::before {
+  content: "9";
+}
+.wheel .s10 {
+  transform: translateX(var(--segments-transform-translatex)) rotate(calc(var(--segments-angle)*10));
+}
+
+.wheel .s10::before {
+  content: "10";
+}
+.wheel .s11 {
+  transform: translateX(var(--segments-transform-translatex)) rotate(calc(var(--segments-angle)*11));
+}
+
+.wheel .s11::before {
+  content: "11";
+}
+.wheel .s12 {
+  transform: translateX(var(--segments-transform-translatex)) rotate(calc(var(--segments-angle)*12));
+}
+
+.wheel .s12::before {
+  content: "12";
+}
+.wheel .s13 {
+  transform: translateX(var(--segments-transform-translatex)) rotate(calc(var(--segments-angle)*13));
+}
+
+.wheel .s13::before {
+  content: "13";
+}
+.wheel .s14 {
+  transform: translateX(var(--segments-transform-translatex)) rotate(calc(var(--segments-angle)*14));
+}
+
+.wheel .s14::before {
+  content: "14";
+}
+.wheel .s15 {
+  transform: translateX(var(--segments-transform-translatex)) rotate(calc(var(--segments-angle)*15));
+}
+
+.wheel .s15::before {
+  content: "15";
+}
+.wheel .s16 {
+  transform: translateX(var(--segments-transform-translatex)) rotate(calc(var(--segments-angle)*16));
+}
+
+.wheel .s16::before {
+  content: "16";
+}
+.wheel .s17 {
+  transform: translateX(var(--segments-transform-translatex)) rotate(calc(var(--segments-angle)*17));
+}
+
+.wheel .s17::before {
+  content: "17";
+}
+.wheel .s18 {
+  transform: translateX(var(--segments-transform-translatex)) rotate(calc(var(--segments-angle)*18));
+}
+
+.wheel .s18::before {
+  content: "18";
+}
+.wheel .s19 {
+  transform: translateX(var(--segments-transform-translatex)) rotate(calc(var(--segments-angle)*19));
+}
+
+.wheel .s19::before {
+  content: "19";
+}
+.wheel .s20 {
+  transform: translateX(var(--segments-transform-translatex)) rotate(calc(var(--segments-angle)*20));
+}
+
+.wheel .s20::before {
+  content: "20";
+}
+
 .results-frame {
   background-color: cornflowerblue;
   color: cornsilk;
-  margin-top: 150px;
+  margin-top: 20px;
   word-wrap: break-word;
   font-size: 8vh;
   padding-top: 20px;
