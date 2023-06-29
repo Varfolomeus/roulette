@@ -80,7 +80,7 @@ export const Tableau = observer(({ wheelRef }) => {
   } = rouletteStorage;
 
   const handleSpinResult = (sector) => {
-    // console.log('sector', sector);
+    console.log('sector', sector);
     if (oddBid) {
       if (sector > 0 && sector % 2 === 0) {
         setResult(-oddBid);
@@ -108,11 +108,17 @@ export const Tableau = observer(({ wheelRef }) => {
 
   const spinHandle = (e) => {
     if (result && (oddBid || evenBid) && e.pressed) {
-      let angleC = Math.floor(Math.random() * 14400) - 7199;
+      let angleC = Math.floor(Math.random() * 14400) - 7200;
+
+      if (Math.abs(angleC) <= 1080) {
+        if (angleC < 0) {
+          angleC -= 1080;
+        } else {
+          angleC += 1080;
+        }
+      }
       let rotateAnglePrev = rotateAngle + angleC;
       setSpinStarted(true);
-      // console.log('spinStarted', spinStarted);
-      // console.log('angleC', angleC, 'spinStarted', spinStarted, 'rotateAngle', rotateAngle, rotateAnglePrev);
       wheelRef.current.style.transition = `transform ${Math.abs(angleC)}ms ease-in-out`;
       wheelRef.current.style.transform = `rotate(${rotateAnglePrev}deg)`;
       setWin(null);
@@ -122,11 +128,12 @@ export const Tableau = observer(({ wheelRef }) => {
         if (pureAngle < 0) {
           pureAngle = 360 + pureAngle;
         }
+        pureAngle = 360 - pureAngle;
         let pureAnglePerSegmentAngle = Math.floor(pureAngle / segmentAngle);
-        if (pureAnglePerSegmentAngle === numberOfSegments - 1) {
+        if (pureAnglePerSegmentAngle > numberOfSegments - 1) {
           handleSpinResult(0);
         } else {
-          handleSpinResult(pureAnglePerSegmentAngle + 1);
+          handleSpinResult(pureAnglePerSegmentAngle);
         }
       }, Math.abs(angleC));
       setSpinStarted(false);
@@ -136,7 +143,7 @@ export const Tableau = observer(({ wheelRef }) => {
     }
   };
   return (
-    <div className="tableau">
+    <div className="controls">
       <div
         onClick={() => {
           if (double && evenBid > 0) {
@@ -240,29 +247,21 @@ export const Wheel = observer(({ wheelRef }) => {
 });
 
 const Results = observer(({ wheelRef }) => {
-  // console.log("rouletteStorage", rouletteStorage);
-  let { gameOver, result, oddBid, evenBid, win, setNumberOfSegments, numberOfSegments, setSegmentAngle, segmentAngle } =
-    rouletteStorage;
+  let { gameOver, result, oddBid, evenBid, win, setNumberOfSegments, setSegmentAngle } = rouletteStorage;
 
   React.useEffect(() => {
-    // console.log('wheelRef', wheelRef.current);
-
     if (wheelRef) {
-      const uuuu = wheelRef.current.querySelectorAll('.segment').length;
-      // console.log('wheelRef', wheelRef.current, 'uuuu', uuuu.length);
-
-      setNumberOfSegments(uuuu);
-      setSegmentAngle(360 / uuuu);
-      // console.log('numberOfSegments', numberOfSegments, 'segmentAngle', segmentAngle);
+      const numberOfSegments = wheelRef.current.querySelectorAll('.segment').length;
+      setNumberOfSegments(numberOfSegments);
+      setSegmentAngle(360 / numberOfSegments);
     }
-  }, [numberOfSegments]);
+  }, []);
   React.useEffect(() => {
-    // console.log("result effect");
     if (!gameOver) {
-      // console.log("stored");
+      console.log('stored');
       localStorage.setItem('myrouletteresult', JSON.stringify({ result }));
     }
-  }, [result, gameOver]);
+  }, [result]);
 
   return (
     <div className="results-frame">

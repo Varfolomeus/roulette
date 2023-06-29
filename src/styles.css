@@ -8,8 +8,8 @@
   --segments-angle: calc(360deg / var(--number-of-segments));
   --segments-border-left-right: calc((var(--wheel-width-height) * 3.3 / var(--number-of-segments))/2);
   --wheel-border-width: calc(var(--wheel-width-height) / 30);
-  --wheel-odd-color: rgb(180, 15, 15);
-  --wheel-even-color: rgb(34, 57, 206);
+  --wheel-odd-color: rgb(150, 114, 28);
+  --wheel-even-color: rgb(40, 75, 116);
 }
 
 body {
@@ -29,7 +29,7 @@ body {
   flex-direction: column;
 }
 
-.tableau {
+.controls {
   background-color: chocolate;
   display: flex;
   flex-direction: row;
@@ -125,7 +125,6 @@ body {
   position: absolute;
   width: var(--segments-border-left-right);
   height: var(--segments-border-left-right);
-  /* background-color: gold; */
   text-align: center;
   bottom: var(--segments-text-bottom);
   left: calc(var(--segments-border-left-right)/(-2));
@@ -134,7 +133,7 @@ body {
 
 .wheel .zero {
   transform: translateX(-50%) rotate(calc(var(--segments-angle)*0));
-  border-top: var(--segments-border-top) solid rgb(9, 248, 9);
+  border-top: var(--segments-border-top) solid rgb(29, 158, 29);
 }
 
 .wheel .zero::before {
