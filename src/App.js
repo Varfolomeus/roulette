@@ -86,7 +86,7 @@ export const Tableau = observer(({ wheelRef }) => {
 
   const handleSpinResult = (sector) => {
     let rouletteNumber = rouletteNumbers[sector];
-    console.log('sector', sector, 'rouletteNumber', rouletteNumber);
+    // console.log('sector', sector, 'rouletteNumber', rouletteNumber);
     if (oddBid) {
       if (rouletteNumber > 0 && rouletteNumber % 2 === 0) {
         setResult(-oddBid);
